@@ -306,13 +306,17 @@ export default function Home() {
         </div>
       </section>
       {/* Community Moments Gallery */}
-      <section className="py-xl overflow-hidden bg-background">
-        <div className="max-w-container-max mx-auto px-gutter mb-12 text-center">
+      <section className="relative py-xl overflow-hidden bg-surface-container-low border-y border-outline-variant/40">
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
+
+        <div className="max-w-container-max mx-auto px-gutter mb-12 text-center relative z-10">
+          <span className="inline-block w-16 h-1 rounded-full bg-secondary mb-5" />
           <h2 className="font-headline-lg text-headline-lg text-primary mb-2">Community Moments</h2>
           <p className="font-body-md text-body-md text-on-surface-variant">Glimpses of our vibrant life, heritage, and the beauty of PEI.</p>
         </div>
 
-        <div className="flex relative">
+        <div className="flex relative z-10 gallery-scroll-frame">
           <div className="animate-scroll flex gap-[var(--gallery-gap)]">
             {[
               "/gallery/picnic.png",
@@ -337,7 +341,7 @@ export default function Home() {
             ].map((src, idx) => (
               <div
                 key={idx}
-                className="w-[var(--gallery-img-width)] h-[300px] md:h-[450px] flex-shrink-0 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-outline-variant/20"
+                className="w-[var(--gallery-img-width)] h-[var(--gallery-img-height)] flex-shrink-0 rounded-lg overflow-hidden shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-[10px] border-white bg-white"
               >
                 <img
                   src={src}
@@ -349,7 +353,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center relative z-10">
           <button className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container hover:text-on-primary-container transition-all shadow-md active:scale-95">
             View All Moments
             <span className="material-symbols-outlined text-[18px]">grid_view</span>

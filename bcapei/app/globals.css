@@ -232,14 +232,23 @@ lord-icon[src] {
 }
 
 :root {
-    --gallery-img-width: 400px;
+    --gallery-img-width: min(72vw, 280px);
+    --gallery-img-height: var(--gallery-img-width);
     --gallery-gap: 16px;
 }
 
 @media (min-width: 768px) {
     :root {
-        --gallery-img-width: 60px;
+        --gallery-img-width: 320px;
+        --gallery-img-height: var(--gallery-img-width);
         --gallery-gap: 32px;
+    }
+}
+
+@media (min-width: 1280px) {
+    :root {
+        --gallery-img-width: 360px;
+        --gallery-img-height: var(--gallery-img-width);
     }
 }
 
@@ -257,6 +266,27 @@ lord-icon[src] {
     display: flex;
     width: max-content;
     animation: scroll 30s linear infinite;
+}
+
+.gallery-scroll-frame::before,
+.gallery-scroll-frame::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    width: min(12vw, 120px);
+    z-index: 20;
+    pointer-events: none;
+}
+
+.gallery-scroll-frame::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--color-surface-container-low), transparent);
+}
+
+.gallery-scroll-frame::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--color-surface-container-low), transparent);
 }
 
 .animate-scroll:hover {
