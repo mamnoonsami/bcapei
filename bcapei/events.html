@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Events &amp; News - PEI Bangladeshi Community</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Noto+Serif:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e3e2df",
+                        "outline": "#6f7a73",
+                        "surface-container-highest": "#e3e2df",
+                        "on-primary-fixed-variant": "#00513b",
+                        "surface-container": "#efeeea",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#7e2717",
+                        "secondary-fixed-dim": "#febb10",
+                        "primary-fixed": "#9ef4d0",
+                        "surface-dim": "#dbdad6",
+                        "surface-bright": "#faf9f5",
+                        "outline-variant": "#bec9c2",
+                        "on-secondary-fixed": "#261900",
+                        "tertiary-fixed": "#ffdad3",
+                        "surface-tint": "#046c50",
+                        "primary": "#00503a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4a5",
+                        "surface-container-low": "#f4f4f0",
+                        "on-tertiary-container": "#ffc9be",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#83d7b4",
+                        "on-surface": "#1b1c1a",
+                        "on-primary-container": "#92e7c3",
+                        "secondary-container": "#febb10",
+                        "inverse-primary": "#83d7b4",
+                        "surface": "#faf9f5",
+                        "on-tertiary-fixed-variant": "#802918",
+                        "tertiary-container": "#9d3e2b",
+                        "on-secondary-fixed-variant": "#5d4200",
+                        "surface-container-high": "#e9e8e4",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#3e0500",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2f312e",
+                        "background": "#faf9f5",
+                        "secondary-fixed": "#ffdea5",
+                        "primary-container": "#006a4e",
+                        "inverse-on-surface": "#f2f1ed",
+                        "on-primary-fixed": "#002116",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#6c4d00",
+                        "on-surface-variant": "#3f4944",
+                        "on-background": "#1b1c1a",
+                        "secondary": "#7b5800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Noto Serif"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-xl": ["Noto Serif"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Noto Serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 106, 78, 0.08);
+        }
+
+        .text-glass {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-background font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 left-0 w-full border-b border-white/30 dark:border-white/10 bg-white/20 dark:bg-emerald-950/20 backdrop-blur-xl backdrop-blur-md shadow-[0_8px_32px_0_rgba(0,106,78,0.08)] z-50 flex justify-between items-center px-8 lg:px-12 h-20 transition-all duration-500 ease-in-out">
+        <div class="text-xl font-bold text-emerald-900 dark:text-emerald-50 font-serif tracking-tight">PEI Bangladeshi
+            Community</div>
+        <div class="hidden md:flex items-center space-x-8">
+            <a class="text-emerald-900/70 dark:text-emerald-50/70 font-medium hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors duration-300 font-serif tracking-tight"
+                href="#">Home</a>
+            <a class="text-emerald-900/70 dark:text-emerald-50/70 font-medium hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors duration-300 font-serif tracking-tight"
+                href="#">Directory</a>
+            <a class="text-emerald-700 dark:text-emerald-400 font-bold border-b-2 border-emerald-700 dark:border-emerald-400 pb-1 font-serif tracking-tight"
+                href="#">Events</a>
+            <a class="text-emerald-900/70 dark:text-emerald-50/70 font-medium hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors duration-300 font-serif tracking-tight"
+                href="#">About</a>
+            <a class="text-emerald-900/70 dark:text-emerald-50/70 font-medium hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors duration-300 font-serif tracking-tight"
+                href="#">Resources</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span
+                class="material-symbols-outlined text-emerald-900 dark:text-emerald-50 cursor-pointer hover:text-emerald-600 transition-colors">search</span>
+            <button
+                class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-sm uppercase tracking-wider hover:bg-primary/90 transition-colors shadow-md">Join
+                Us</button>
+        </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="pt-[140px] pb-xl px-4 md:px-8 max-w-[1280px] mx-auto">
+        <!-- Header Section -->
+        <header class="mb-xl text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-gutter">
+            <div class="max-w-2xl">
+                <h1 class="font-display-xl text-display-xl text-primary mb-sm">Chronicles &amp; Gatherings</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant">Stay connected with the heartbeat of the
+                    PEI Bangladeshi diaspora. Discover upcoming cultural celebrations, community milestones, and stories
+                    that bridge our deltaic roots with island life.</p>
+            </div>
+            <div class="flex gap-4">
+                <button
+                    class="glass-panel text-tertiary border border-tertiary px-6 py-2 rounded-full font-label-sm uppercase tracking-wider hover:bg-tertiary/5 transition-colors">Filter
+                    by Event</button>
+                <button
+                    class="glass-panel text-primary border border-primary px-6 py-2 rounded-full font-label-sm uppercase tracking-wider hover:bg-primary/5 transition-colors">Filter
+                    by News</button>
+            </div>
+        </header>
+        <!-- Featured Article (Bento Grid Style) -->
+        <section class="mb-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter glass-panel rounded-[24px] overflow-hidden">
+                <div class="lg:col-span-8 relative min-h-[400px] lg:min-h-[500px]">
+                    <img alt="Featured Event" class="absolute inset-0 w-full h-full object-cover"
+                        data-alt="A high-quality, editorial-style photograph of a vibrant cultural gathering. The scene features people in traditional colorful Bangladeshi attire engaged in festive activities outdoors. The lighting is warm and natural, evoking a late afternoon golden hour. The overall aesthetic is joyful, communal, and richly textured, fitting a premium lush sanctuary design style."
+                        src="./public/events-image/pohela-boishakh.png" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-lg w-full">
+                        <span
+                            class="inline-block bg-tertiary/90 text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm mb-md backdrop-blur-sm">Featured
+                            Event</span>
+                        <h2 class="font-headline-lg text-headline-lg text-on-primary mb-sm text-glass">Pohela Boishakh
+                            Celebration 2024</h2>
+                        <p class="font-body-md text-body-md text-surface-container-highest max-w-2xl mb-md">Join us as
+                            we welcome the Bengali New Year with vibrant colors, traditional music, and authentic
+                            cuisine at Victoria Park. A day to celebrate our heritage on the island.</p>
+                        <div class="flex items-center gap-2 text-surface-container-highest font-label-sm text-label-sm">
+                            <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            <span>April 14, 2024</span>
+                            <span class="mx-2">•</span>
+                            <span class="material-symbols-outlined text-[18px]">location_on</span>
+                            <span>Victoria Park, Charlottetown</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 p-lg bg-surface-bright flex flex-col justify-center">
+                    <h3 class="font-headline-md text-headline-md text-primary mb-md">Reserve Your Spot</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-lg">Early registration helps us
+                        ensure enough traditional sweets and savory dishes for everyone. Don't miss out on the biggest
+                        cultural event of the year.</p>
+                    <button
+                        class="w-full bg-primary text-on-primary py-4 rounded-xl font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-colors shadow-md">Register
+                        Now</button>
+                </div>
+            </div>
+        </section>
+        <!-- Decorative Divider -->
+        <div class="flex justify-center items-center py-md opacity-20 mb-xl">
+            <span class="material-symbols-outlined text-[48px] text-primary">eco</span>
+        </div>
+        <!-- News & Events Grid -->
+        <section>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <!-- Card 1 -->
+                <article
+                    class="glass-panel rounded-xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-48 relative">
+                        <img alt="Community News" class="w-full h-full object-cover"
+                            data-alt="A clean, minimalist composition showing hands holding a warm cup of tea on a wooden table, with scattered papers and a pen nearby. The lighting is soft, diffused, and natural, creating a serene and inviting atmosphere. The color palette emphasizes warm neutrals and soft earthy greens, aligning with a premium, organic community aesthetic."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZFuAVZocfC0Z3KfJycHLe0CZjio0_L4sokEKdmcuYttfzu5stepr-mzs5JEQff_Hr0owaP9USMWh1zfTqjzg_IMJVR3FgXTaJdkC3QDOc7tTWoLGwL-4ZY26_TxOz9MszH7yRMKxRVNUaCzomtmkxOucd-fqKGByEpQcyFb-cXznfU9XgU9fE727EBxpQlBLdgMXgWOvbajbreQRddG02kWium-_h1SFRrY2AbduxEQmQKUyLM_09TlRxpEybgNK03ckn2PZ-qEI" />
+                        <div
+                            class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm shadow-sm">
+                            Newsletter</div>
+                    </div>
+                    <div class="p-md flex flex-col flex-grow bg-surface/50">
+                        <div class="text-on-surface-variant font-label-sm text-label-sm mb-xs flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">schedule</span> March 1, 2024
+                        </div>
+                        <h3 class="font-headline-md text-[24px] leading-[32px] text-primary mb-sm">Spring Community
+                            Update &amp; Delta Echoes Issue 4</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow line-clamp-3">Read
+                            our latest newsletter covering recent community achievements, upcoming volunteer
+                            opportunities, and a spotlight on small businesses owned by our members.</p>
+                        <a class="inline-flex items-center gap-2 text-tertiary font-label-sm text-label-sm uppercase tracking-wider hover:text-tertiary-container transition-colors mt-auto"
+                            href="#">
+                            Read Full Issue <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+                <!-- Card 2 -->
+                <article
+                    class="glass-panel rounded-xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-48 relative">
+                        <img alt="Professional Workshop" class="w-full h-full object-cover"
+                            data-alt="A modern, bright meeting room setting showing a diverse group of professionals engaged in a collaborative discussion around a clean white table. Sunlight streams through large windows. The scene is shot with a shallow depth of field, focusing on the interactive dynamic. The aesthetic is highly professional, clean, and optimistic, utilizing soft whites and subtle greens."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8lcv8_aSaZL-kEe8_YWeOngZ5DOz7GKOiVS9TkQGX5L3vPNqAvoCjTeCvqO8S97JDnwkE81_Fjnt7oV94ALs88Xg3F73a8fiudhE2bHYV7E0LQh38dDV59OvR6u4-qrzNNo-LR3GDp_kfWDn4pWJIg85d_E5lzeQw-I1bPOMEKjU1UDv6OMuc1TcC1vxI3n0EnxJfYwx_qm4XfhY_W143JPKr3OMMJwhmJhPPtG7qPpFTW5DWBOvpQ_IrALaz0VJR0zR0dyUAA6M" />
+                        <div
+                            class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm shadow-sm">
+                            News</div>
+                    </div>
+                    <div class="p-md flex flex-col flex-grow bg-surface/50">
+                        <div class="text-on-surface-variant font-label-sm text-label-sm mb-xs flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">schedule</span> February 20, 2024
+                        </div>
+                        <h3 class="font-headline-md text-[24px] leading-[32px] text-primary mb-sm">New Mentorship
+                            Program Launched for Recent Immigrants</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow line-clamp-3">We are
+                            thrilled to announce a new initiative pairing established professionals with newcomers to
+                            help navigate the local job market and cultural integration.</p>
+                        <a class="inline-flex items-center gap-2 text-tertiary font-label-sm text-label-sm uppercase tracking-wider hover:text-tertiary-container transition-colors mt-auto"
+                            href="#">
+                            Learn More <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+                <!-- Card 3 -->
+                <article
+                    class="glass-panel rounded-xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-48 relative bg-surface-variant flex items-center justify-center">
+                        <div class="text-center p-md">
+                            <span class="material-symbols-outlined text-[48px] text-tertiary mb-2">sports_cricket</span>
+                            <h4 class="font-headline-md text-[20px] text-primary">Summer Cricket League</h4>
+                        </div>
+                        <div
+                            class="absolute top-4 left-4 bg-tertiary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm shadow-sm">
+                            Event</div>
+                    </div>
+                    <div class="p-md flex flex-col flex-grow bg-surface/50">
+                        <div class="text-on-surface-variant font-label-sm text-label-sm mb-xs flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">schedule</span> Starts June 5, 2024
+                        </div>
+                        <h3 class="font-headline-md text-[24px] leading-[32px] text-primary mb-sm">Team Registrations
+                            Open for 2024 PEI BD Cricket Cup</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow line-clamp-3">Gather
+                            your squad! Registration is now open for the annual summer cricket tournament. All skill
+                            levels welcome for a season of friendly competition.</p>
+                        <a class="inline-flex items-center gap-2 text-tertiary font-label-sm text-label-sm uppercase tracking-wider hover:text-tertiary-container transition-colors mt-auto"
+                            href="#">
+                            Register Team <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <div class="mt-lg flex justify-center">
+                <button
+                    class="bg-surface text-primary border border-primary/20 px-8 py-3 rounded-full font-label-sm text-label-sm uppercase tracking-wider hover:bg-surface-variant transition-colors shadow-sm">Load
+                    Older Articles</button>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="w-full mt-20 border-t border-emerald-100 dark:border-emerald-900 bg-stone-50 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-50 font-serif text-sm relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-8 py-16 max-w-7xl mx-auto">
+            <div>
+                <div class="text-lg font-semibold text-emerald-800 dark:text-emerald-200 mb-4">PEI Bangladeshi Community
+                </div>
+                <p class="text-stone-600 dark:text-stone-400">© 2024 PEI Bangladeshi Community. Bridging Deltaic Roots
+                    with Island Life.</p>
+            </div>
+            <div class="md:col-span-2 flex flex-wrap gap-8 md:justify-end">
+                <a class="text-stone-600 dark:text-stone-400 hover:text-emerald-800 dark:hover:text-emerald-200 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Contact Us</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-emerald-800 dark:hover:text-emerald-200 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Newsletters</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-emerald-800 dark:hover:text-emerald-200 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Volunteer</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-emerald-800 dark:hover:text-emerald-200 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll behavior for Navbar
+            const navbar = document.querySelector('nav');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    // Scrolling DOWN
+                    navbar.classList.replace('top-0', '-top-32');
+                } else if (currentScrollY < lastScrollY) {
+                    // Scrolling UP
+                    navbar.classList.replace('-top-32', 'top-0');
+                }
+
+                if (currentScrollY <= 50) {
+                    navbar.classList.replace('-top-32', 'top-0');
+                }
+
+                lastScrollY = currentScrollY;
+            });
+        });
+    </script>
+</body>
+
+</html>

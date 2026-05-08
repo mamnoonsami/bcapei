@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+@theme inline {
+    --color-surface-variant: #e3e2df;
+    --color-outline: #6f7a73;
+    --color-surface-container-highest: #e3e2df;
+    --color-on-primary-fixed-variant: #00513b;
+    --color-surface-container: #efeeea;
+    --color-on-primary: #ffffff;
+    --color-surface-container-lowest: #ffffff;
+    --color-tertiary: #7e2717;
+    --color-secondary-fixed-dim: #febb10;
+    --color-primary-fixed: #9ef4d0;
+    --color-surface-dim: #dbdad6;
+    --color-surface-bright: #faf9f5;
+    --color-outline-variant: #bec9c2;
+    --color-on-secondary-fixed: #261900;
+    --color-tertiary-fixed: #ffdad3;
+    --color-surface-tint: #046c50;
+    --color-primary: #00503a;
+    --color-on-secondary: #ffffff;
+    --color-tertiary-fixed-dim: #ffb4a5;
+    --color-surface-container-low: #f4f4f0;
+    --color-on-tertiary-container: #ffc9be;
+    --color-on-error: #ffffff;
+    --color-primary-fixed-dim: #83d7b4;
+    --color-on-surface: #1b1c1a;
+    --color-on-primary-container: #92e7c3;
+    --color-secondary-container: #febb10;
+    --color-inverse-primary: #83d7b4;
+    --color-surface: #faf9f5;
+    --color-on-tertiary-fixed-variant: #802918;
+    --color-tertiary-container: #9d3e2b;
+    --color-on-secondary-fixed-variant: #5d4200;
+    --color-surface-container-high: #e9e8e4;
+    --color-on-error-container: #93000a;
+    --color-on-tertiary-fixed: #3e0500;
+    --color-error: #ba1a1a;
+    --color-error-container: #ffdad6;
+    --color-inverse-surface: #2f312e;
+    --color-background: #faf9f5;
+    --color-secondary-fixed: #ffdea5;
+    --color-primary-container: #006a4e;
+    --color-inverse-on-surface: #f2f1ed;
+    --color-on-primary-fixed: #002116;
+    --color-on-tertiary: #ffffff;
+    --color-on-secondary-container: #6c4d00;
+    --color-on-surface-variant: #3f4944;
+    --color-on-background: #1b1c1a;
+    --color-secondary: #7b5800;
+
+    --spacing-container-max: 1280px;
+    --spacing-xl: 80px;
+    --spacing-gutter: 24px;
+    --spacing-base: 8px;
+    --spacing-xs: 4px;
+    --spacing-md: 24px;
+    --spacing-sm: 12px;
+    --spacing-lg: 48px;
+
+    --font-headline-md: var(--font-noto-serif);
+    --font-body-md: var(--font-inter);
+    --font-body-lg: var(--font-inter);
+    --font-display-xl: var(--font-noto-serif);
+    --font-label-sm: var(--font-inter);
+    --font-headline-lg: var(--font-noto-serif);
+    --font-serif: var(--font-noto-serif);
+
+    --text-headline-md: 32px;
+    --text-headline-md--line-height: 40px;
+    --text-headline-md--font-weight: 600;
+
+    --text-body-md: 16px;
+    --text-body-md--line-height: 24px;
+    --text-body-md--font-weight: 400;
+
+    --text-body-lg: 18px;
+    --text-body-lg--line-height: 28px;
+    --text-body-lg--font-weight: 400;
+
+    --text-display-xl: 64px;
+    --text-display-xl--line-height: 72px;
+    --text-display-xl--letter-spacing: -0.02em;
+    --text-display-xl--font-weight: 700;
+
+    --text-label-sm: 12px;
+    --text-label-sm--line-height: 16px;
+    --text-label-sm--letter-spacing: 0.05em;
+    --text-label-sm--font-weight: 600;
+
+    --text-headline-lg: 40px;
+    --text-headline-lg--line-height: 48px;
+    --text-headline-lg--letter-spacing: -0.01em;
+    --text-headline-lg--font-weight: 600;
+}
+
+@layer base {
+    .glass-panel {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(0, 106, 78, 0.08);
+    }
+}
+
+@keyframes dropIn {
+    0% {
+        translate: 0 -150%;
+        opacity: 0;
+    }
+
+    100% {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+.animate-drop-in {
+    animation: dropIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageFadeIn {
+    0% {
+        opacity: 0;
+        filter: blur(4px);
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0);
+    }
+}
+
+.animate-page-transition {
+    animation: pageFadeIn 0.5s ease-out forwards;
+}
+
+/* ── Explore Directory button animations ─────────────────────── */
+
+/* Shimmer sweep across the button face */
+@keyframes btnShimmer {
+    0% {
+        left: -80%;
+    }
+
+    100% {
+        left: 130%;
+    }
+}
+
+/* Pulsing glow ring */
+@keyframes btnGlow {
+    0% {
+        box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0px rgba(255, 255, 255, 0);
+    }
+}
+
+.btn-explore {
+    position: relative;
+    overflow: hidden;
+    animation: btnGlow 2.4s ease-out infinite;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+/* Shimmer streak */
+.btn-explore::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(105deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 70%);
+    animation: btnShimmer 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+}
+
+.btn-explore:hover {
+    transform: scale(1.06);
+}
+
+.btn-explore:active {
+    transform: scale(0.97);
+}
+
+/* Arrow: hidden & shifted right by default, slides in on hover */
+.btn-explore .btn-explore-arrow {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+        max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.btn-explore:hover .btn-explore-arrow {
+    max-width: 24px;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* ── Lordicon animated icons ─────────────────────────────────── */
+
+/* Ensure the custom element renders as a block before the script loads */
+lord-icon {
+    display: inline-block;
+}
+
+/* Smooth fade-in once initialized */
+lord-icon[src] {
+    animation: pageFadeIn 0.6s ease-out forwards;
+}
+
+:root {
+    --gallery-img-width: 400px;
+    --gallery-gap: 16px;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --gallery-img-width: 60px;
+        --gallery-gap: 32px;
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-1 * (var(--gallery-img-width) * 6 + var(--gallery-gap) * 6)));
+    }
+}
+
+.animate-scroll {
+    display: flex;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+    animation-play-state: paused;
+}
