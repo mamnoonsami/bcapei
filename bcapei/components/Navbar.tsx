@@ -46,7 +46,7 @@ export function Navbar() {
   return (
     <>
       <nav 
-        className={`animate-drop-in fixed left-0 w-full border-b border-white/40 dark:border-primary/20 z-50 bg-white/90 dark:bg-white/90 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,106,78,0.12)] flex justify-between items-center px-4 md:px-8 lg:px-12 h-16 md:h-20 transition-all duration-500 ease-in-out ${
+        className={`animate-drop-in fixed left-0 w-full z-50 bg-white/90 dark:bg-white/90 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,106,78,0.12)] flex justify-between items-center px-4 md:px-8 lg:px-12 h-16 md:h-20 transition-all duration-500 ease-in-out ${
           isVisible ? "top-0" : "-top-32"
         }`}
       >

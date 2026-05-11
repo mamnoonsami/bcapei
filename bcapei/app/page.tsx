@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatedIcon } from "@/components/AnimatedIcon";
+import { motion } from "framer-motion";
 
 // Mock data for easy integration of real data later
 const upcomingEvents = [
@@ -50,6 +51,19 @@ const upcomingEvents = [
   },
 ];
 
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
@@ -91,18 +105,25 @@ export default function Home() {
         {/* Desktop Image: original grid card layout + scroll-out animation */}
         <div className="hidden md:flex w-full max-w-[1600px] mx-auto px-8 lg:px-12 py-8 absolute top-20 bottom-0 left-0 right-0 items-center z-10 pointer-events-none">
           <div
-            className="w-7/12 h-[80vh] shadow-2xl overflow-hidden flex-shrink-0"
+            className="w-7/12 h-[80vh] shadow-2xl flex-shrink-0"
             style={{
               transform: `translateX(${-ease * 110}%)`,
               opacity: Math.max(0, 1 - ease * 2.2),
               pointerEvents: ease > 0.05 ? "none" : "auto",
             }}
           >
-            <img
-              alt="Hero background"
-              className="w-full h-full object-cover object-center"
-              src="/bg-image/bg-image.png"
-            />
+            <motion.div
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="w-full h-full overflow-hidden"
+            >
+              <img
+                alt="Hero background"
+                className="w-full h-full object-cover object-center"
+                src="/bg-image/bg-image.png"
+              />
+            </motion.div>
           </div>
         </div>
 
@@ -111,19 +132,23 @@ export default function Home() {
           className="hidden md:flex absolute inset-0 items-center z-20"
           style={{ transform: `translateX(${(1 - ease) * 58}%)` }}
         >
-          <div className="w-full px-10 lg:px-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 backdrop-blur-sm border border-white/20">
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15 } }}
+            className="w-full px-10 lg:px-16"
+          >
+            <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 backdrop-blur-sm border border-white/20">
               <span className="material-symbols-outlined text-[16px]">eco</span>
               Heritage &amp; Home
-            </span>
-            <h1 className="font-display-xl text-5xl md:text-6xl lg:text-[72px] text-white drop-shadow-sm leading-tight font-bold mb-6">
+            </motion.span>
+            <motion.h1 variants={fadeUp} className="font-display-xl text-5xl md:text-6xl lg:text-[72px] text-white drop-shadow-sm leading-tight font-bold mb-6">
               Bridging Deltaic Roots <br />
               <span className="text-emerald-200 italic font-medium">with Island Life.</span>
-            </h1>
-            <p className="font-body-lg text-lg md:text-xl text-white/90 font-medium max-w-2xl mb-10 leading-relaxed">
+            </motion.h1>
+            <motion.p variants={fadeUp} className="font-body-lg text-lg md:text-xl text-white/90 font-medium max-w-2xl mb-10 leading-relaxed">
               Welcome to the digital home of the PEI Bangladeshi Community. A curated space celebrating our rich cultural heritage.
-            </p>
-            <div className="flex flex-row items-center justify-start gap-6">
+            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-row items-center justify-start gap-6">
               <button className="btn-explore bg-white text-primary px-10 py-4 rounded-full font-label-sm text-label-sm shadow-lg font-bold whitespace-nowrap flex items-center gap-2">
                 Upcoming Events
                 <span className="btn-explore-arrow material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -131,40 +156,56 @@ export default function Home() {
               <button className="bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-colors font-bold whitespace-nowrap">
                 Explore Directory
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* ── Mobile layout (unchanged) ─────────────────────────── */}
         <div className="md:hidden w-full">
           {/* Mobile image */}
-          <div className="relative w-full h-[60vh] shadow-2xl overflow-hidden z-10">
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative w-full h-[60vh] shadow-2xl overflow-hidden z-10"
+          >
             <img
               alt="Hero background"
               className="w-full h-full object-cover object-center"
               src="/bg-image/bg-image.png"
             />
-          </div>
+          </motion.div>
           {/* Mobile content */}
-          <div className="flex flex-col justify-center px-6 sm:px-10 py-12 text-left z-20 bg-primary relative -mt-[30vh] mr-8 sm:mr-16 shadow-2xl">
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col justify-center px-6 sm:px-10 py-12 text-left z-20 bg-primary relative -mt-[30vh] mr-8 sm:mr-16 shadow-2xl"
+          >
             <div className="absolute bottom-0 left-0 right-0 h-2 flex">
               <div className="w-1/3 bg-secondary" />
               <div className="w-1/3 bg-tertiary" />
               <div className="w-1/3 bg-primary-container" />
             </div>
-            <div className="w-full">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 backdrop-blur-sm border border-white/20">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-100px" }}
+              className="w-full"
+            >
+              <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 backdrop-blur-sm border border-white/20">
                 <span className="material-symbols-outlined text-[16px]">eco</span>
                 Heritage &amp; Home
-              </span>
-              <h1 className="font-display-xl text-5xl text-white drop-shadow-sm leading-tight font-bold mb-6">
+              </motion.span>
+              <motion.h1 variants={fadeUp} className="font-display-xl text-5xl text-white drop-shadow-sm leading-tight font-bold mb-6">
                 Bridging Deltaic Roots <br />
                 <span className="text-emerald-200 italic font-medium">with Island Life.</span>
-              </h1>
-              <p className="font-body-lg text-lg text-white/90 font-medium w-full mb-10 leading-relaxed">
+              </motion.h1>
+              <motion.p variants={fadeUp} className="font-body-lg text-lg text-white/90 font-medium w-full mb-10 leading-relaxed">
                 Welcome to the digital home of the PEI Bangladeshi Community. A curated space celebrating our rich cultural heritage.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-start gap-4 w-full">
+              </motion.p>
+              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-start gap-4 w-full">
                 <button className="btn-explore w-full sm:w-auto bg-white text-primary px-10 py-4 rounded-full font-label-sm text-label-sm shadow-lg font-bold whitespace-nowrap flex items-center justify-center gap-2">
                   Upcoming Events
                   <span className="btn-explore-arrow material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -172,9 +213,9 @@ export default function Home() {
                 <button className="w-full sm:w-auto bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-colors font-bold whitespace-nowrap">
                   Explore Directory
                 </button>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
       </header>
 
@@ -201,9 +242,15 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[320px]">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[320px]"
+        >
           {/* Featured Event */}
-          <div className="md:col-span-8 glass-panel rounded-3xl overflow-hidden relative group">
+          <motion.div variants={fadeUp} className="md:col-span-8 glass-panel rounded-3xl overflow-hidden relative group">
             <img
               alt={upcomingEvents[0].title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -231,10 +278,10 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Smaller Event 1 */}
-          <div className="md:col-span-4 glass-panel rounded-3xl p-8 flex flex-col justify-between bg-surface-container-lowest/80 relative overflow-hidden group">
+          <motion.div variants={fadeUp} className="md:col-span-4 glass-panel rounded-3xl p-8 flex flex-col justify-between bg-surface-container-lowest/80 relative overflow-hidden group">
             <div className={`absolute ${upcomingEvents[1].blurPosition} w-48 h-48 ${upcomingEvents[1].blurBg} rounded-full blur-2xl transition-transform group-hover:scale-150`}></div>
             <div>
               <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${upcomingEvents[1].iconBg} mb-6`}>
@@ -255,10 +302,10 @@ export default function Home() {
                 <span className="material-symbols-outlined">arrow_outward</span>
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Smaller Event 2 */}
-          <div className="md:col-span-5 glass-panel rounded-3xl p-8 flex flex-col justify-between bg-surface-container-lowest/80 relative overflow-hidden group">
+          <motion.div variants={fadeUp} className="md:col-span-5 glass-panel rounded-3xl p-8 flex flex-col justify-between bg-surface-container-lowest/80 relative overflow-hidden group">
             <div className={`absolute ${upcomingEvents[2].blurPosition} w-48 h-48 ${upcomingEvents[2].blurBg} rounded-full blur-2xl transition-transform group-hover:scale-150`}></div>
             <div>
               <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${upcomingEvents[2].iconBg} mb-6`}>
@@ -279,10 +326,10 @@ export default function Home() {
                 <span className="material-symbols-outlined">arrow_outward</span>
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Smaller Event 3 */}
-          <div className="md:col-span-7 glass-panel rounded-3xl overflow-hidden relative group">
+          <motion.div variants={fadeUp} className="md:col-span-7 glass-panel rounded-3xl overflow-hidden relative group">
             <img
               alt={upcomingEvents[3].title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -302,11 +349,11 @@ export default function Home() {
                 {upcomingEvents[3].title}
               </h3>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
       {/* Community Moments Gallery */}
-      <section className="relative py-xl overflow-hidden bg-surface-container-low border-y border-outline-variant/40">
+      <section className="relative py-xl overflow-hidden bg-[#f4f6f8] border-y border-outline-variant/40">
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
 
@@ -362,7 +409,13 @@ export default function Home() {
       </section>
 
       {/* Stay Connected (Newsletter) */}
-      <section className="mt-xl py-24 bg-surface-container-low relative border-t border-outline-variant/20">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="mt-xl py-24 bg-surface-container-low relative border-t border-outline-variant/20"
+      >
         <div className="max-w-3xl mx-auto px-gutter text-center">
           {/* Animated envelope — Lordicon free icon, loops on load */}
           <div className="flex justify-center mb-4">
@@ -398,7 +451,7 @@ export default function Home() {
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>
-      </section>
+      </motion.section>
     </>
   );
 }

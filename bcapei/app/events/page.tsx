@@ -1,4 +1,7 @@
+"use client";
+
 import { AnimatedIcon } from "@/components/AnimatedIcon";
+import { motion } from "framer-motion";
 
 // Mock data for events and news
 const featuredEvent = {
@@ -42,102 +45,138 @@ const newsAndEvents = [
   }
 ];
 
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+};
+
 export default function Events() {
   return (
     <>
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .text-glass {
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
       `}} />
 
-      <main className="pt-[140px] pb-xl px-4 md:px-8 max-w-[1280px] mx-auto selection:bg-primary-container selection:text-on-primary-container">
+      <main className="pt-[180px] pb-xl px-6 md:px-12 xl:px-24 w-full mx-auto selection:bg-primary-container selection:text-on-primary-container">
         {/* Header Section */}
-        <header className="mb-xl text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-gutter">
-          <div className="max-w-2xl">
-            {/* Animated calendar icon */}
-            <div className="flex justify-center md:justify-start mb-4">
-              <AnimatedIcon
-                src="/icons/calendar.json"
-                trigger="loop"
-                size={88}
-                speed={0.7}
-              />
+        <div className="max-w-[1600px] mx-auto w-full">
+          <motion.header
+            variants={staggerContainer}
+            initial="hidden"
+            animate="show"
+            className="mb-xl text-center md:text-left"
+          >
+            <div className="max-w-4xl">
+              <motion.h1 variants={fadeUp} className="font-display-xl text-[40px] md:text-[56px] text-primary mb-4 leading-tight">Chronicles & Gatherings</motion.h1>
+              <motion.p variants={fadeUp} className="font-body-lg text-lg md:text-xl text-on-surface-variant leading-relaxed">Stay connected with the heartbeat of the PEI Bangladeshi diaspora. Discover upcoming cultural celebrations, community milestones, and stories that bridge our deltaic roots with island life.</motion.p>
             </div>
-            <h1 className="font-display-xl text-display-xl text-primary mb-sm">Chronicles & Gatherings</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">Stay connected with the heartbeat of the PEI Bangladeshi diaspora. Discover upcoming cultural celebrations, community milestones, and stories that bridge our deltaic roots with island life.</p>
-          </div>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <button className="glass-panel text-tertiary border border-tertiary px-6 py-2 rounded-full font-label-sm uppercase tracking-wider hover:bg-tertiary/5 transition-colors">Filter by Event</button>
-            <button className="glass-panel text-primary border border-primary px-6 py-2 rounded-full font-label-sm uppercase tracking-wider hover:bg-primary/5 transition-colors">Filter by News</button>
-          </div>
-        </header>
+          </motion.header>
+        </div>
 
-        {/* Featured Article (Bento Grid Style) */}
-        <section className="mb-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter glass-panel rounded-[24px] overflow-hidden">
-            <div className="lg:col-span-8 relative min-h-[400px] lg:min-h-[500px]">
-              <img alt="Featured Event" className="absolute inset-0 w-full h-full object-cover" src={featuredEvent.image} />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 p-lg w-full">
-                <span className="inline-block bg-tertiary/90 text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm mb-md backdrop-blur-sm">Featured Event</span>
-                <h2 className="font-headline-lg text-headline-lg text-on-primary mb-sm text-glass">{featuredEvent.title}</h2>
-                <p className="font-body-md text-body-md text-surface-container-highest max-w-2xl mb-md">{featuredEvent.description}</p>
-                <div className="flex items-center gap-2 text-surface-container-highest font-label-sm text-label-sm">
-                  <span className="material-symbols-outlined text-[18px]">calendar_today</span>
-                  <span>{featuredEvent.date}</span>
-                  <span className="mx-2">•</span>
-                  <span className="material-symbols-outlined text-[18px]">location_on</span>
-                  <span>{featuredEvent.location}</span>
+        {/* Main Content Layout (Side by Side) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-[1600px] mx-auto">
+          
+          {/* Left Column: Featured Event (Main Action) */}
+          <motion.section
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-8 xl:col-span-9 flex flex-col h-full"
+          >
+            <div className="glass-panel rounded-[24px] overflow-hidden flex flex-col h-full shadow-lg">
+              <div className="relative min-h-[400px] lg:min-h-[600px] flex-grow">
+                <img alt="Featured Event" className="absolute inset-0 w-full h-full object-cover" src={featuredEvent.image} />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
+                  <div className="max-w-2xl">
+                    <span className="inline-block bg-tertiary/90 text-on-primary px-4 py-1.5 rounded-full font-label-sm text-sm mb-4 backdrop-blur-sm shadow-sm">Featured Event</span>
+                    <h2 className="font-headline-lg text-4xl md:text-5xl text-white mb-3 text-glass">{featuredEvent.title}</h2>
+                    <p className="font-body-md text-white/90 text-lg mb-4">{featuredEvent.description}</p>
+                    <div className="flex items-center gap-4 text-white/90 font-label-sm">
+                      <div className="flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                        <span className="material-symbols-outlined text-[18px] text-tertiary-container">calendar_today</span>
+                        <span>{featuredEvent.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                        <span className="material-symbols-outlined text-[18px] text-tertiary-container">location_on</span>
+                        <span>{featuredEvent.location}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="shrink-0">
+                    <button className="w-full md:w-auto bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl font-label-sm uppercase tracking-widest hover:bg-secondary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-secondary/20">
+                      Reserve Spot
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-4 p-lg bg-surface-bright flex flex-col justify-center">
-              <h3 className="font-headline-md text-headline-md text-primary mb-md">Reserve Your Spot</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant mb-lg">Early registration helps us ensure enough traditional sweets and savory dishes for everyone. Don't miss out on the biggest cultural event of the year.</p>
-              <button className="w-full bg-primary text-on-primary py-4 rounded-xl font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-colors shadow-md">Register Now</button>
+          </motion.section>
+
+          {/* Right Column: News & Events Vertical List */}
+          <motion.section
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-4 xl:col-span-3 flex flex-col"
+          >
+            <div className="flex items-center justify-between mb-6 px-2">
+              <h3 className="font-headline-lg text-2xl text-primary">Latest Updates</h3>
+              <button className="text-tertiary hover:text-tertiary-container transition-colors font-label-sm text-sm uppercase tracking-wider flex items-center gap-1">
+                View All <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </button>
             </div>
-          </div>
-        </section>
-
-        {/* Decorative Divider */}
-        <div className="flex justify-center items-center py-md opacity-20 mb-xl">
-          <span className="material-symbols-outlined text-[48px] text-primary">eco</span>
-        </div>
-
-        {/* News & Events Grid */}
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            {newsAndEvents.map((item) => (
-              <article key={item.id} className="glass-panel rounded-xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                <div className={`h-48 relative ${item.icon ? 'bg-surface-variant flex items-center justify-center' : ''}`}>
-                  {item.image ? (
-                    <img alt={item.title} className="w-full h-full object-cover" src={item.image} />
-                  ) : (
-                    <div className="text-center p-md">
-                      <span className="material-symbols-outlined text-[48px] text-tertiary mb-2">{item.icon}</span>
-                      <h4 className="font-headline-md text-[20px] text-primary">Summer Cricket League</h4>
-                    </div>
-                  )}
-                  <div className={`absolute top-4 left-4 ${item.typeBadge} px-3 py-1 rounded-full font-label-sm text-label-sm shadow-sm`}>{item.type}</div>
-                </div>
-                <div className="p-md flex flex-col flex-grow bg-surface/50">
-                  <div className="text-on-surface-variant font-label-sm text-label-sm mb-xs flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[14px]">schedule</span> {item.date}
+            
+            <div className="flex flex-col gap-6 lg:overflow-y-auto lg:max-h-[600px] hide-scrollbar lg:pr-2 pb-4">
+              {newsAndEvents.map((item) => (
+                <article key={item.id} className="glass-panel rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform duration-300 shadow-md group border border-outline-variant/30 relative">
+                  
+                  {/* Event Type Badge - Top Right */}
+                  <div className={`absolute top-4 right-4 z-20 px-3 py-1 rounded-full font-label-sm text-xs uppercase tracking-wider shadow-md ${
+                    item.type === 'Newsletter' ? 'bg-secondary-container text-on-secondary-container' : 
+                    item.type === 'News' ? 'bg-primary text-white' : 
+                    'bg-tertiary text-white'
+                  }`}>
+                    {item.type}
                   </div>
-                  <h3 className="font-headline-md text-[24px] leading-[32px] text-primary mb-sm">{item.title}</h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant mb-md flex-grow line-clamp-3">{item.description}</p>
-                  <a className="inline-flex items-center gap-2 text-tertiary font-label-sm text-label-sm uppercase tracking-wider hover:text-tertiary-container transition-colors mt-auto" href="#">
-                    {item.linkText} <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="mt-lg flex justify-center">
-            <button className="bg-surface text-primary border border-primary/20 px-8 py-3 rounded-full font-label-sm text-label-sm uppercase tracking-wider hover:bg-surface-variant transition-colors shadow-sm">Load Older Articles</button>
-          </div>
-        </section>
+
+                  <div className={`h-40 relative overflow-hidden ${item.icon ? 'bg-surface-variant flex items-center justify-center' : ''}`}>
+                    {item.image ? (
+                      <img alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={item.image} />
+                    ) : (
+                      <div className="text-center p-md">
+                        <span className="material-symbols-outlined text-[40px] text-tertiary mb-2 opacity-80">{item.icon}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5 flex flex-col flex-grow bg-surface/80">
+                    <div className="text-primary font-label-sm text-xs mb-2 flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[14px]">schedule</span> {item.date}
+                    </div>
+                    <h4 className="font-headline-md text-lg text-on-surface mb-2 line-clamp-2 group-hover:text-primary transition-colors">{item.title}</h4>
+                    <p className="font-body-md text-sm text-on-surface-variant mb-4 line-clamp-2">{item.description}</p>
+                    <a className="inline-flex items-center gap-1 text-tertiary font-label-sm text-xs uppercase tracking-wider hover:text-tertiary-container transition-colors mt-auto" href="#">
+                      {item.linkText} <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </motion.section>
+
+        </div>
       </main>
     </>
   );
