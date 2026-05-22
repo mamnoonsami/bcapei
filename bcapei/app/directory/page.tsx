@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 
 // Mock data array for easy integration with real data later
@@ -80,6 +81,32 @@ const fadeUp: Variants = {
 };
 
 export default function Directory() {
+  const fullText = "Community Directory";
+  const [displayText, setDisplayText] = useState("");
+  const [isDoneTyping, setIsDoneTyping] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    let interval: NodeJS.Timeout;
+
+    timer = setTimeout(() => {
+      let currentIdx = 0;
+      interval = setInterval(() => {
+        setDisplayText(fullText.slice(0, currentIdx + 1));
+        currentIdx++;
+        if (currentIdx >= fullText.length) {
+          clearInterval(interval);
+          setIsDoneTyping(true);
+        }
+      }, 70);
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+      if (interval) clearInterval(interval);
+    };
+  }, []);
+
   return (
     <>
       <main className="flex-grow w-full py-xl pt-[180px] bg-background relative overflow-hidden min-h-screen">
@@ -98,7 +125,20 @@ export default function Directory() {
             <motion.span variants={fadeUp} className="inline-block py-1 px-4 rounded-full bg-surface-container border border-outline-variant/30 text-primary font-label-sm tracking-widest uppercase mb-4 shadow-sm">
               Our People
             </motion.span>
-            <motion.h1 variants={fadeUp} className="font-display-xl text-4xl md:text-5xl lg:text-6xl text-primary mb-6">Community Directory</motion.h1>
+            <motion.h1
+              variants={fadeUp}
+              className="font-display-xl text-4xl md:text-5xl lg:text-6xl text-primary mb-6 flex items-center min-h-[1.2em] flex-wrap"
+              aria-label="Community Directory"
+            >
+              {displayText}
+              {!isDoneTyping && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
+                  className="inline-block w-[3px] md:w-[4px] h-[0.85em] bg-primary ml-1 align-middle"
+                />
+              )}
+            </motion.h1>
             <motion.p variants={fadeUp} className="font-body-lg text-lg md:text-xl text-on-surface-variant leading-relaxed">
               Connect with professionals, creatives, and leaders within the PEI Bangladeshi diaspora. A network bridging deltaic roots with island life.
             </motion.p>
