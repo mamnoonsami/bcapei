@@ -1,4 +1,20 @@
+"use client";
+
 import { AnimatedIcon } from "@/components/AnimatedIcon";
+import { motion, Variants } from "framer-motion";
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+};
 
 export default function Resources() {
   return (
@@ -9,10 +25,15 @@ export default function Resources() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-grow pt-[140px] pb-xl px-gutter max-w-container-max mx-auto w-full">
+      <main className="flex-grow pt-[180px] pb-xl px-gutter max-w-container-max mx-auto w-full">
         {/* Header Section */}
-        <header className="mb-lg text-center md:text-left">
-          <div className="flex flex-col md:flex-row items-center gap-4 mb-sm justify-center md:justify-start">
+        <motion.header 
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+          className="mb-lg text-center md:text-left"
+        >
+          <motion.div variants={fadeUp} className="flex flex-col md:flex-row items-center gap-4 mb-sm justify-center md:justify-start">
             <AnimatedIcon
               src="/icons/book.json"
               trigger="loop"
@@ -20,15 +41,21 @@ export default function Resources() {
               speed={0.7}
             />
             <h1 className="font-display-xl text-display-xl text-primary">Community Resources</h1>
-          </div>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">A curated collection of guides, templates, and services to help you navigate life in Prince Edward Island while staying connected to your roots.</p>
-        </header>
+          </motion.div>
+          <motion.p variants={fadeUp} className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">A curated collection of guides, templates, and services to help you navigate life in Prince Edward Island while staying connected to your roots.</motion.p>
+        </motion.header>
 
         {/* Categories Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-gutter"
+        >
           
           {/* Category 1: Newcomer Guides */}
-          <section className="col-span-1 md:col-span-8 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-8 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-primary-fixed/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
@@ -54,10 +81,10 @@ export default function Resources() {
                 </a>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Category 2: Language Support */}
-          <section className="col-span-1 md:col-span-4 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-4 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-secondary-container/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
@@ -85,10 +112,10 @@ export default function Resources() {
                 </a>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Category 3: Local Services */}
-          <section className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-tertiary-container/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
@@ -118,10 +145,10 @@ export default function Resources() {
                 </a>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Category 4: Document Templates */}
-          <section className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-outline/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center">
@@ -147,8 +174,8 @@ export default function Resources() {
                 </a>
               </div>
             </div>
-          </section>
-        </div>
+          </motion.section>
+        </motion.div>
       </main>
     </>
   );
