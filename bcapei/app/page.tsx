@@ -3,6 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatedIcon } from "@/components/AnimatedIcon";
 import { motion, Variants } from "framer-motion";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // Mock data for easy integration of real data later
 const upcomingEvents = [
@@ -367,60 +374,111 @@ export default function Home() {
         </section>
       </div>
       {/* Community Moments Gallery */}
-      <section className="relative py-xl overflow-hidden bg-[#f4f6f8] border-y border-outline-variant/40">
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
+      <motion.section
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, margin: "-150px" }}
+        className="relative py-xl overflow-hidden bg-[#E9F0ED] border-b border-outline-variant/40"
+      >
 
-        <div className="max-w-container-max mx-auto px-gutter mb-12 text-center relative z-10">
-          <span className="inline-block w-16 h-1 rounded-full bg-secondary mb-5" />
+        {/* Hanging Camera decoration in the center */}
+        <motion.div
+          variants={{
+            initial: { y: -200 },
+            animate: {
+              y: 0,
+              transition: { type: "spring", stiffness: 100, damping: 10, mass: 1 }
+            }
+          }}
+          className="absolute left-1/2 -translate-x-1/2 top-0 z-20 flex flex-col items-center origin-top pointer-events-none"
+        >
+          {/* Swinging motion */}
+          <motion.div
+            animate={{ rotate: [-28, 28, -28] }}
+            transition={{
+              duration: 1.0,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="flex flex-col items-center origin-top"
+          >
+            {/* Camera strap */}
+            <div className="w-[1.5px] h-24 bg-primary/30" />
+            {/* Camera body */}
+            <div className="-mt-1 p-3.5 bg-surface-bright rounded-2xl shadow-xl border border-outline-variant/60 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-10 h-10">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+              </svg>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        <div className="max-w-container-max mx-auto px-gutter mb-12 text-center relative z-10 pt-28">
           <h2 className="font-headline-lg text-headline-lg text-primary mb-2">Community Moments</h2>
           <p className="font-body-md text-body-md text-on-surface-variant">Glimpses of our vibrant life, heritage, and the beauty of PEI.</p>
         </div>
 
-        <div className="flex relative z-10 gallery-scroll-frame">
-          <div className="animate-scroll flex gap-[var(--gallery-gap)]">
-            {[
-              "/gallery/picnic.png",
-              "/gallery/dance.png",
-              "/gallery/coastline.png",
-              "/gallery/food.png",
-              "/gallery/children.png",
-              "/gallery/crafts.png",
-              // Duplicate sets for seamless infinite effect on large screens
-              "/gallery/picnic.png",
-              "/gallery/dance.png",
-              "/gallery/coastline.png",
-              "/gallery/food.png",
-              "/gallery/children.png",
-              "/gallery/crafts.png",
-              "/gallery/picnic.png",
-              "/gallery/dance.png",
-              "/gallery/coastline.png",
-              "/gallery/food.png",
-              "/gallery/children.png",
-              "/gallery/crafts.png",
-            ].map((src, idx) => (
-              <div
-                key={idx}
-                className="w-[var(--gallery-img-width)] h-[var(--gallery-img-height)] flex-shrink-0 rounded-lg overflow-hidden shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-[10px] border-white bg-white"
-              >
-                <img
-                  src={src}
-                  alt={`Gallery moment ${idx + 1}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            ))}
+        <div className="relative z-10 w-full overflow-hidden px-4 pb-4">
+          <div className="max-w-6xl mx-auto">
+            <Swiper
+              effect={'coverflow'}
+              grabCursor={true}
+              centeredSlides={true}
+              loop={true}
+              slidesPerView={'auto'}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 150,
+                modifier: 2.5,
+                slideShadows: true,
+              }}
+              navigation={{
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+              }}
+              modules={[EffectCoverflow, Navigation, Pagination]}
+              className="w-full py-8 !overflow-visible"
+            >
+              {[
+                "/gallery/picnic.png",
+                "/gallery/dance.png",
+                "/gallery/coastline.png",
+                "/gallery/food.png",
+                "/gallery/children.png",
+                "/gallery/crafts.png",
+              ].map((src, idx) => (
+                <SwiperSlide key={idx} className="max-w-[280px] sm:max-w-[350px] md:max-w-[450px]">
+                  <div className="w-full aspect-[4/5] flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl bg-surface-container">
+                    <img
+                      src={src}
+                      alt={`Gallery moment ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <button className="swiper-button-prev-custom w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant/50 hover:bg-white transition-colors bg-surface-container-lowest">
+                <span className="material-symbols-outlined text-[24px]">arrow_back</span>
+              </button>
+              <button className="swiper-button-next-custom w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant/50 hover:bg-white transition-colors bg-surface-container-lowest">
+                <span className="material-symbols-outlined text-[24px]">arrow_forward</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 text-center relative z-10">
+        <div className="mt-8 text-center relative z-10">
           <button className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container hover:text-on-primary-container transition-all shadow-md active:scale-95">
             View All Moments
             <span className="material-symbols-outlined text-[18px]">grid_view</span>
           </button>
         </div>
-      </section>
+      </motion.section>
 
       {/* Stay Connected (Newsletter) */}
       <motion.section
