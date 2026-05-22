@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -15,12 +17,13 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       if (typeof window !== "undefined") {
         const currentScrollY = window.scrollY;
-        
+
         // Hide when scrolling down, show when scrolling up (Standard convention)
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
           // Scrolling DOWN
@@ -45,32 +48,39 @@ export function Navbar() {
 
   return (
     <>
-      <nav 
-        className={`animate-drop-in fixed left-0 w-full z-50 bg-white/90 dark:bg-white/90 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,106,78,0.12)] flex justify-between items-center px-4 md:px-8 lg:px-12 h-16 md:h-20 transition-all duration-500 ease-in-out ${
-          isVisible ? "top-0" : "-top-32"
+      <nav
+        className={`animate-drop-in fixed inset-x-4 md:inset-x-8 z-50 bg-white/90 dark:bg-white/90 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,106,78,0.08)] border border-primary/5 flex justify-between items-center px-6 md:px-10 h-16 md:h-18 rounded-2xl transition-all duration-500 ease-in-out ${
+          isVisible ? "top-4 md:top-6" : "-top-32"
         }`}
       >
         <div className="flex items-center gap-md">
           <Link href="/">
             <span className="text-lg md:text-xl font-bold text-primary dark:text-primary font-serif tracking-tight">
-              PEI Bangladeshi Community
+              BCAPEI
             </span>
           </Link>
         </div>
-        
+
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-lg">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-primary/80 dark:text-primary/80 font-medium font-serif tracking-tight hover:text-primary dark:hover:text-primary transition-colors duration-300"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center gap-lg h-full">
+          {navLinks.map((link) => {
+            const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`relative h-full flex items-center font-medium font-serif tracking-tight transition-colors duration-300 ${
+                  isActive
+                    ? "text-black font-semibold"
+                    : "text-primary/80 dark:text-primary/80 hover:text-primary dark:hover:text-primary"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
-        
+
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-sm">
           <button
@@ -108,16 +118,23 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-white/95 dark:bg-emerald-950/95 backdrop-blur-md pt-28 px-6 pb-6 flex flex-col md:hidden">
           <div className="flex flex-col gap-6 items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-2xl text-primary dark:text-primary font-bold font-serif tracking-tight hover:text-primary/80 transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-2xl font-bold font-serif tracking-tight transition-colors ${
+                    isActive
+                      ? "text-black dark:text-white"
+                      : "text-primary dark:text-white/70 hover:text-primary/80 dark:hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
             <div className="w-full h-px bg-primary/20 my-4" />
             <button className="w-full bg-primary text-white font-label-sm text-label-sm px-6 py-4 rounded-full shadow-md hover:bg-primary/90 transition-colors">
               Join Us

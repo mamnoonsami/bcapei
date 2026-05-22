@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatedIcon } from "@/components/AnimatedIcon";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 // Mock data for events and news
 const featuredEvent = {
@@ -45,7 +45,7 @@ const newsAndEvents = [
   }
 ];
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -53,7 +53,7 @@ const staggerContainer = {
   }
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
 };
@@ -68,24 +68,28 @@ export default function Events() {
         }
       `}} />
 
-      <main className="pt-[180px] pb-xl px-6 md:px-12 xl:px-24 w-full mx-auto selection:bg-primary-container selection:text-on-primary-container">
+      <main className="pt-[180px] pb-xl px-6 md:px-[10%] w-full mx-auto selection:bg-primary-container selection:text-on-primary-container">
         {/* Header Section */}
-        <div className="max-w-[1600px] mx-auto w-full">
+        <div className="w-full">
           <motion.header
             variants={staggerContainer}
             initial="hidden"
             animate="show"
-            className="mb-xl text-center md:text-left"
+            className="mb-10 md:mb-xl text-left"
           >
             <div className="max-w-4xl">
-              <motion.h1 variants={fadeUp} className="font-display-xl text-[40px] md:text-[56px] text-primary mb-4 leading-tight">Chronicles & Gatherings</motion.h1>
-              <motion.p variants={fadeUp} className="font-body-lg text-lg md:text-xl text-on-surface-variant leading-relaxed">Stay connected with the heartbeat of the PEI Bangladeshi diaspora. Discover upcoming cultural celebrations, community milestones, and stories that bridge our deltaic roots with island life.</motion.p>
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
+                <span className="w-10 h-1 rounded-full bg-secondary"></span>
+                <span className="text-secondary font-label-sm uppercase tracking-widest text-xs md:text-sm font-bold">Community Hub</span>
+              </motion.div>
+              <motion.h1 variants={fadeUp} className="font-display-xl text-[32px] md:text-[56px] text-primary mb-3 md:mb-4 leading-tight">Chronicles & Gatherings</motion.h1>
+              <motion.p variants={fadeUp} className="font-body-lg text-base md:text-xl text-on-surface-variant leading-relaxed">Stay connected with the heartbeat of the PEI Bangladeshi diaspora. Discover upcoming cultural celebrations, community milestones, and stories that bridge our deltaic roots with island life.</motion.p>
             </div>
           </motion.header>
         </div>
 
         {/* Main Content Layout (Side by Side) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-[1600px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
           
           {/* Left Column: Featured Event (Main Action) */}
           <motion.section
@@ -98,25 +102,25 @@ export default function Events() {
               <div className="relative min-h-[400px] lg:min-h-[600px] flex-grow">
                 <img alt="Featured Event" className="absolute inset-0 w-full h-full object-cover" src={featuredEvent.image} />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-8 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div className="absolute bottom-0 left-0 p-5 md:p-8 w-full flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
                   <div className="max-w-2xl">
-                    <span className="inline-block bg-tertiary/90 text-on-primary px-4 py-1.5 rounded-full font-label-sm text-sm mb-4 backdrop-blur-sm shadow-sm">Featured Event</span>
-                    <h2 className="font-headline-lg text-4xl md:text-5xl text-white mb-3 text-glass">{featuredEvent.title}</h2>
-                    <p className="font-body-md text-white/90 text-lg mb-4">{featuredEvent.description}</p>
-                    <div className="flex items-center gap-4 text-white/90 font-label-sm">
-                      <div className="flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                        <span className="material-symbols-outlined text-[18px] text-tertiary-container">calendar_today</span>
+                    <span className="inline-block bg-tertiary/90 text-on-primary px-3 py-1 md:px-4 md:py-1.5 rounded-full font-label-sm text-xs md:text-sm mb-3 md:mb-4 backdrop-blur-sm shadow-sm">Featured Event</span>
+                    <h2 className="font-headline-lg text-2xl md:text-5xl text-white mb-2 md:mb-3 text-glass leading-tight">{featuredEvent.title}</h2>
+                    <p className="font-body-md text-white/90 text-sm md:text-lg mb-3 md:mb-4 line-clamp-2 md:line-clamp-none">{featuredEvent.description}</p>
+                    <div className="flex flex-wrap items-center gap-2 md:gap-4 text-white/90 font-label-sm text-xs md:text-sm">
+                      <div className="flex items-center gap-1.5 md:gap-2 bg-black/20 px-2.5 py-1 md:px-3 md:py-1.5 rounded-full backdrop-blur-sm">
+                        <span className="material-symbols-outlined text-[16px] md:text-[18px] text-tertiary-container">calendar_today</span>
                         <span>{featuredEvent.date}</span>
                       </div>
-                      <div className="flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                        <span className="material-symbols-outlined text-[18px] text-tertiary-container">location_on</span>
-                        <span>{featuredEvent.location}</span>
+                      <div className="flex items-center gap-1.5 md:gap-2 bg-black/20 px-2.5 py-1 md:px-3 md:py-1.5 rounded-full backdrop-blur-sm">
+                        <span className="material-symbols-outlined text-[16px] md:text-[18px] text-tertiary-container">location_on</span>
+                        <span className="truncate max-w-[120px] md:max-w-none">{featuredEvent.location}</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="shrink-0">
-                    <button className="w-full md:w-auto bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl font-label-sm uppercase tracking-widest hover:bg-secondary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-secondary/20">
+                  <div className="shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                    <button className="w-full md:w-auto bg-secondary-container text-on-secondary-container px-6 py-3 md:px-10 md:py-4 rounded-xl font-label-sm uppercase tracking-widest hover:bg-secondary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-secondary/20 text-xs md:text-sm">
                       Reserve Spot
                     </button>
                   </div>

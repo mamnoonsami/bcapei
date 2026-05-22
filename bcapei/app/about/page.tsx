@@ -3,9 +3,9 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { AnimatedIcon } from "@/components/AnimatedIcon";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -13,17 +13,17 @@ const staggerContainer = {
   }
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-const timelineLeft = {
+const timelineLeft: Variants = {
   hidden: { opacity: 0, x: -50 },
   show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-const timelineRight = {
+const timelineRight: Variants = {
   hidden: { opacity: 0, x: 50 },
   show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };

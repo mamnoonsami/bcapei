@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 // Mock data array for easy integration with real data later
 const directoryData = [
@@ -66,7 +66,7 @@ const directoryData = [
   }
 ];
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -74,7 +74,7 @@ const staggerContainer = {
   }
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
 };
@@ -82,10 +82,11 @@ const fadeUp = {
 export default function Directory() {
   return (
     <>
-      <main className="flex-grow w-full mx-auto px-6 md:px-12 xl:px-24 py-xl pt-[180px] bg-background relative overflow-hidden min-h-screen">
+      <main className="flex-grow w-full py-xl pt-[180px] bg-background relative overflow-hidden min-h-screen">
         {/* Dynamic Background Pattern */}
         <div className="absolute inset-0 leaf-pattern opacity-30 pointer-events-none z-0" />
 
+        <div className="w-full px-6 md:px-[10%] mx-auto relative z-10">
         {/* Header & Controls Section */}
         <div className="relative z-10 flex flex-col xl:flex-row xl:items-end justify-between gap-12 mb-16">
           <motion.header
@@ -177,6 +178,7 @@ export default function Directory() {
           <button className="w-10 h-10 rounded-full bg-white border border-outline-variant/30 flex items-center justify-center text-on-surface hover:bg-primary/10 hover:text-primary transition-colors shadow-sm">
             <span className="material-symbols-outlined">chevron_right</span>
           </button>
+        </div>
         </div>
       </main>
     </>
