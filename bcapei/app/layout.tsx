@@ -29,11 +29,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${notoSerif.variable} h-full antialiased light scroll-smooth`}
+      suppressHydrationWarning
     >
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-on-background font-body-md text-body-md overflow-x-hidden">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-on-background font-body-md text-body-md overflow-x-hidden">
         <Navbar />
         <div style={{ zoom: 0.8 }} className="flex flex-col flex-1">
           <main className="flex-1">{children}</main>
