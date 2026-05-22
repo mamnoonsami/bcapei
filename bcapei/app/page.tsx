@@ -378,7 +378,7 @@ export default function Home() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-150px" }}
-        className="relative py-xl overflow-hidden bg-[#E9F0ED] border-b border-outline-variant/40"
+        className="relative py-xl overflow-hidden bg-[#EDF0EF] border-b border-outline-variant/40"
       >
 
         {/* Hanging Camera decoration in the center */}
