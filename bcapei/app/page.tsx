@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { AnimatedIcon } from "@/components/AnimatedIcon";
-import { motion, Variants } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
 
@@ -71,29 +71,61 @@ const fadeUp: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
+const slideVariant = (index: number): Variants => {
+  let offset = 0;
+  if (index === 0) offset = 0;
+  else if (index === 1) offset = 1;
+  else if (index === 2) offset = 2;
+  else if (index === 3) offset = 3;
+  else if (index === 4) offset = -2;
+  else if (index === 5) offset = -1;
+
+  return {
+    initial: {
+      x: `${-offset * 100}%`,
+      rotate: offset * 8,
+      scale: 0.85,
+      opacity: 0.3,
+    },
+    animate: {
+      x: 0,
+      rotate: 0,
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 70,
+        damping: 15,
+        delay: Math.abs(offset) * 0.15 + 0.25,
+      }
+    }
+  };
+};
+
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (!heroRef.current) return;
-      const p = Math.min(window.scrollY / (heroRef.current.offsetHeight * 0.5), 1);
-      setProgress(p);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // useScroll drives MotionValues directly to DOM — zero React re-renders on scroll
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "center start"],
+  });
 
-  // Eased value for smoother feel
-  const ease = progress < 0.5
-    ? 2 * progress * progress
-    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+  // Green panel: clip-path left edge goes from 35% → 0% as we scroll
+  const clipLeft = useTransform(scrollYProgress, [0, 1], [35, 0]);
+  const clipPath = useTransform(clipLeft, (v) => `inset(0 0 0 ${v}%)`);
+  // Content: slides from +54% to 0% as we scroll
+  const contentX = useTransform(scrollYProgress, [0, 1], [54, 0]);
+  const contentXPct = useTransform(contentX, (v) => `${v}%`);
+  // Hero image: slides out to the left and fades
+  const imageX = useTransform(scrollYProgress, [0, 1], [0, -110]);
+  const imageXPct = useTransform(imageX, (v) => `${v}%`);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
 
   return (
     <>
       {/* Hero Section */}
-      <header ref={heroRef} className="relative min-h-screen md:min-h-[125vh] w-full overflow-hidden bg-background pt-20">
+      <header ref={heroRef} className="relative min-h-0 md:min-h-[133.33vh] w-full overflow-hidden bg-background">
 
         {/* ── Desktop layout (md+) ──────────────────────────────── */}
 
@@ -107,25 +139,24 @@ export default function Home() {
         </div>
 
         {/* Green BG: starts at right 65%, expands to full via clip-path */}
-        <div
+        <motion.div
           className="hidden md:block absolute inset-0 bg-primary z-0"
-          style={{ clipPath: `inset(0 0 0 ${(1 - ease) * 35}%)` }}
+          style={{ clipPath }}
         >
           <div className="absolute bottom-0 left-0 right-0 h-2 flex">
             <div className="w-1/3 bg-secondary" />
             <div className="w-1/3 bg-tertiary" />
             <div className="w-1/3 bg-primary-container" />
           </div>
-        </div>
+        </motion.div>
 
         {/* Desktop Image: original grid card layout + scroll-out animation */}
-        <div className="hidden md:flex w-full max-w-[1600px] mx-auto px-8 lg:px-12 py-8 absolute top-20 bottom-0 left-0 right-0 items-center z-10 pointer-events-none">
-          <div
+        <div className="hidden md:flex w-full max-w-[1600px] mx-auto px-8 lg:px-12 py-8 absolute top-0 left-0 right-0 h-[133.33vh] items-center z-10 pointer-events-none">
+          <motion.div
             className="w-7/12 h-[80vh] shadow-2xl flex-shrink-0"
             style={{
-              transform: `translateX(${-ease * 110}%)`,
-              opacity: Math.max(0, 1 - ease * 2.2),
-              pointerEvents: ease > 0.05 ? "none" : "auto",
+              x: imageXPct,
+              opacity: imageOpacity,
             }}
           >
             <motion.div
@@ -140,20 +171,20 @@ export default function Home() {
                 src="/bg-image/bg-image.jpg"
               />
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Desktop Content: shifts from right-only to full width */}
-        <div
-          className="hidden md:flex absolute inset-0 items-center z-20"
-          style={{ transform: `translateX(${(1 - ease) * 58}%)` }}
+        <motion.div
+          className="hidden md:flex absolute top-0 left-0 right-0 h-[133.33vh] items-center z-20"
+          style={{ x: contentXPct }}
         >
           <motion.div
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15 } }}
             className="w-full px-10 lg:px-16"
           >
-            <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 backdrop-blur-sm border border-white/20">
+            <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 border border-white/20">
               <span className="material-symbols-outlined text-[16px]">eco</span>
               Heritage &amp; Home
             </motion.span>
@@ -165,16 +196,16 @@ export default function Home() {
               Welcome to the digital home of the PEI Bangladeshi Community. A curated space celebrating our rich cultural heritage.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-row items-center justify-start gap-6">
-              <button className="btn-explore bg-white text-primary px-10 py-4 rounded-full font-label-sm text-label-sm shadow-lg font-bold whitespace-nowrap flex items-center gap-2">
+              <button className="btn-explore bg-white text-primary px-12 py-5 rounded-full text-base shadow-lg font-bold whitespace-nowrap flex items-center gap-2">
                 Upcoming Events
-                <span className="btn-explore-arrow material-symbols-outlined text-[16px]">arrow_forward</span>
+                <span className="btn-explore-arrow material-symbols-outlined text-[18px]">arrow_forward</span>
               </button>
-              <button className="bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-colors font-bold whitespace-nowrap">
+              <button className="bg-transparent border-2 border-white text-white px-12 py-5 rounded-full text-base hover:bg-white/10 transition-colors font-bold whitespace-nowrap">
                 Explore Directory
               </button>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* ── Mobile layout (unchanged) ─────────────────────────── */}
         <div className="md:hidden w-full">
@@ -210,7 +241,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               className="w-full"
             >
-              <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 backdrop-blur-sm border border-white/20">
+              <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-label-sm text-label-sm shadow-sm mb-6 border border-white/20">
                 <span className="material-symbols-outlined text-[16px]">eco</span>
                 Heritage &amp; Home
               </motion.span>
@@ -222,11 +253,11 @@ export default function Home() {
                 Welcome to the digital home of the PEI Bangladeshi Community. A curated space celebrating our rich cultural heritage.
               </motion.p>
               <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-start gap-4 w-full">
-                <button className="btn-explore w-full sm:w-auto bg-white text-primary px-10 py-4 rounded-full font-label-sm text-label-sm shadow-lg font-bold whitespace-nowrap flex items-center justify-center gap-2">
+                <button className="btn-explore w-full sm:w-auto bg-white text-primary px-10 py-4 rounded-full text-base shadow-lg font-bold whitespace-nowrap flex items-center justify-center gap-2">
                   Upcoming Events
-                  <span className="btn-explore-arrow material-symbols-outlined text-[16px]">arrow_forward</span>
+                  <span className="btn-explore-arrow material-symbols-outlined text-[18px]">arrow_forward</span>
                 </button>
-                <button className="w-full sm:w-auto bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-colors font-bold whitespace-nowrap">
+                <button className="w-full sm:w-auto bg-transparent border-2 border-white text-white px-10 py-4 rounded-full text-base hover:bg-white/10 transition-colors font-bold whitespace-nowrap">
                   Explore Directory
                 </button>
               </motion.div>
@@ -237,7 +268,7 @@ export default function Home() {
 
 
       {/* Upcoming Events (Bento Grid) */}
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full z-[2] shadow-[0_24px_48px_-8px_rgba(0,0,0,0.28),0_8px_16px_-4px_rgba(0,0,0,0.14)]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img src="/bg-image/events-bg.png" alt="Events Background" className="w-full h-full object-cover" />
         </div>
@@ -303,7 +334,7 @@ export default function Home() {
             {/* Smaller Event 1 */}
             <motion.div variants={fadeUp} className="md:col-span-4 glass-panel rounded-3xl p-8 flex flex-col justify-between bg-surface-container-lowest/80 relative overflow-hidden group">
               <div className={`absolute ${upcomingEvents[1].blurPosition} w-48 h-48 ${upcomingEvents[1].blurBg} rounded-full blur-2xl transition-transform group-hover:scale-150`}></div>
-              <div>
+              <div className="relative z-10">
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${upcomingEvents[1].iconBg} mb-6`}>
                   <span className="material-symbols-outlined">{upcomingEvents[1].icon}</span>
                 </div>
@@ -327,7 +358,7 @@ export default function Home() {
             {/* Smaller Event 2 */}
             <motion.div variants={fadeUp} className="md:col-span-5 glass-panel rounded-3xl p-8 flex flex-col justify-between bg-surface-container-lowest/80 relative overflow-hidden group">
               <div className={`absolute ${upcomingEvents[2].blurPosition} w-48 h-48 ${upcomingEvents[2].blurBg} rounded-full blur-2xl transition-transform group-hover:scale-150`}></div>
-              <div>
+              <div className="relative z-10">
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${upcomingEvents[2].iconBg} mb-6`}>
                   <span className="material-symbols-outlined">{upcomingEvents[2].icon}</span>
                 </div>
@@ -378,7 +409,7 @@ export default function Home() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-150px" }}
-        className="relative py-xl overflow-hidden bg-[#EDF0EF] border-b border-outline-variant/40"
+        className="relative z-[1] py-xl overflow-hidden bg-[#EDF0EF]"
       >
 
         {/* Hanging Camera decoration in the center */}
@@ -450,13 +481,16 @@ export default function Home() {
                 "/gallery/crafts.png",
               ].map((src, idx) => (
                 <SwiperSlide key={idx} className="max-w-[280px] sm:max-w-[350px] md:max-w-[450px]">
-                  <div className="w-full aspect-[4/5] flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl bg-surface-container">
+                  <motion.div
+                    variants={slideVariant(idx)}
+                    className="w-full aspect-[4/5] flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl bg-surface-container"
+                  >
                     <img
                       src={src}
                       alt={`Gallery moment ${idx + 1}`}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </motion.div>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -486,7 +520,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, margin: "-100px" }}
-        className="pt-[200px] pb-[176px] -mb-20 relative overflow-hidden"
+        className="pt-[200px] pb-[176px] -mb-20 relative overflow-hidden z-[2] shadow-[0_-6px_18px_-4px_rgba(0,0,0,0.10)]"
       >
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img src="/bg-image/newsletter-bg.png" alt="Newsletter Background" className="w-full h-full object-cover" />
