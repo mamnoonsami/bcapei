@@ -12,7 +12,19 @@ const featuredEvent = {
   image: "/events-image/pohela-boishakh.png",
 };
 
-const newsAndEvents = [
+interface NewsEventItem {
+  id: number;
+  type: string;
+  typeBadge: string;
+  date: string;
+  title: string;
+  description: string;
+  image?: string;
+  icon?: string;
+  linkText: string;
+}
+
+const newsAndEvents: NewsEventItem[] = [
   {
     id: 1,
     type: "Newsletter",
