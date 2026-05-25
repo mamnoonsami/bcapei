@@ -96,12 +96,22 @@
 
 @layer base {
     .glass-panel {
+        position: relative;
+        z-index: 0;
+        box-shadow: 0 8px 32px 0 rgba(0, 106, 78, 0.08);
+    }
+    .glass-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
         background-color: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border-top: 1px solid rgba(255, 255, 255, 0.2);
         border-left: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px 0 rgba(0, 106, 78, 0.08);
+        border-radius: inherit;
+        pointer-events: none;
     }
 }
 
@@ -124,13 +134,11 @@
 @keyframes pageFadeIn {
     0% {
         opacity: 0;
-        filter: blur(4px);
         transform: translateY(10px);
     }
 
     100% {
         opacity: 1;
-        filter: blur(0px);
         transform: translateY(0);
     }
 }
@@ -142,36 +150,36 @@
 /* ── Explore Directory button animations ─────────────────────── */
 
 /* Shimmer sweep across the button face */
+/* Shimmer sweep across the button face using GPU-accelerated transform */
 @keyframes btnShimmer {
     0% {
-        left: -80%;
+        transform: translateX(-100%);
     }
-
     100% {
-        left: 130%;
+        transform: translateX(100%);
     }
 }
 
-/* Pulsing glow ring */
+/* Pulsing glow ring using GPU-friendly box-shadow and faster 1.8s cycle */
 @keyframes btnGlow {
     0% {
-        box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.6);
+        box-shadow: 0 0 0 0px rgba(0, 106, 78, 0.35);
     }
-
     70% {
-        box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
+        box-shadow: 0 0 0 8px rgba(0, 106, 78, 0);
     }
-
     100% {
-        box-shadow: 0 0 0 0px rgba(255, 255, 255, 0);
+        box-shadow: 0 0 0 0px rgba(0, 106, 78, 0);
     }
 }
 
 .btn-explore {
     position: relative;
     overflow: hidden;
-    animation: btnGlow 2.4s ease-out infinite;
+    isolation: isolate;
+    animation: btnGlow 1.8s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
     transition: transform 0.25s ease, background-color 0.25s ease;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Shimmer streak */
@@ -179,15 +187,16 @@
     content: "";
     position: absolute;
     top: 0;
-    left: -80%;
-    width: 55%;
+    left: 0;
+    width: 100%;
     height: 100%;
     background: linear-gradient(105deg,
             transparent 30%,
-            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 255, 255, 0.45) 50%,
             transparent 70%);
-    animation: btnShimmer 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: btnShimmer 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     pointer-events: none;
+    z-index: -1;
 }
 
 .btn-explore:hover {

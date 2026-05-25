@@ -55,7 +55,7 @@ export default function Resources() {
         >
           
           {/* Category 1: Newcomer Guides */}
-          <motion.section variants={fadeUp} className="col-span-1 md:col-span-8 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-8 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-primary-fixed/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
@@ -84,7 +84,7 @@ export default function Resources() {
           </motion.section>
 
           {/* Category 2: Language Support */}
-          <motion.section variants={fadeUp} className="col-span-1 md:col-span-4 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-4 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-secondary-container/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
@@ -115,7 +115,7 @@ export default function Resources() {
           </motion.section>
 
           {/* Category 3: Local Services */}
-          <motion.section variants={fadeUp} className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-tertiary-container/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
@@ -148,7 +148,7 @@ export default function Resources() {
           </motion.section>
 
           {/* Category 4: Document Templates */}
-          <motion.section variants={fadeUp} className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group">
+          <motion.section variants={fadeUp} className="col-span-1 md:col-span-6 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-outline/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="flex items-center space-x-sm mb-md relative z-10">
               <div className="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center">

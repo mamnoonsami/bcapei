@@ -36,7 +36,10 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-on-background font-body-md text-body-md overflow-x-hidden">
         <Navbar />
-        <div style={{ zoom: 0.8 }} className="flex flex-col flex-1">
+        {/* zoom: 0.75 shrinks all content + text proportionally.
+            The Navbar is a sibling above this wrapper, so it stays full-size.
+            Adjust the value (0.75 = 75%, 0.8 = 80%) to taste. */}
+        <div style={{ zoom: 0.75 }} className="flex flex-col flex-1">
           <main className="flex-1">{children}</main>
           <Footer />
         </div>

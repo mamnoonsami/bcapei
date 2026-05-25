@@ -149,7 +149,7 @@ export default function Directory() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="glass-panel rounded-2xl p-4 flex flex-col md:flex-row gap-4 items-center w-full xl:w-auto shadow-xl border border-white/40 bg-white/60 backdrop-blur-2xl"
+            className="glass-panel rounded-2xl p-4 flex flex-col md:flex-row gap-4 items-center w-full xl:w-auto shadow-xl border border-white/40 bg-white/60"
           >
             <div className="relative w-full xl:w-80">
               <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
