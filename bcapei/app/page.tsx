@@ -268,7 +268,7 @@ export default function Home() {
 
 
       {/* Upcoming Events (Bento Grid) */}
-      <div className="relative w-full z-[2] shadow-[0_24px_48px_-8px_rgba(0,0,0,0.28),0_8px_16px_-4px_rgba(0,0,0,0.14)]">
+      <div className="relative w-full z-[2] shadow-[0_16px_32px_-8px_rgba(0,0,0,0.10),0_6px_12px_-4px_rgba(0,0,0,0.05)]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img src="/bg-image/events-bg.png" alt="Events Background" className="w-full h-full object-cover" />
         </div>
